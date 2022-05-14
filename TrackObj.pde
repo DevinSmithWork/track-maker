@@ -6,19 +6,26 @@ class track {
 
   ArrayList<section> secList = new ArrayList<section>();
 
+  // Create track
   track() {
+    // sector size calculations
     byte numSec = byte(random(3, 6));
+    float secSize = TWO_PI/numSec;
+    float secOffset = secSize/3;
 
+    // sector position calculations
     for (byte i=0; i<numSec; i++) {
+      float secCenter = secSize * i;
 
-      // Section vector calculation  
       PVector secVector = new PVector(
-        sin(TWO_PI/numSec * i), 
+        sin(random(secCenter - secOffset, secCenter + secOffset)), 
         random(-PI/8, PI/8), 
-        cos(TWO_PI/numSec * i));
+        cos(random(secCenter - secOffset, secCenter + secOffset)));
+
       float magnitude = random(50, 200);
       secVector.mult(magnitude);
 
+      // Create new sector object and add to list
       section s = new section(secVector);
       secList.add(s);
     }
@@ -27,7 +34,6 @@ class track {
 
   // Draw the track
   void viz() {
-
 
     // Guides Boxes
     if (drawGuides) {
