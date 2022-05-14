@@ -16,8 +16,6 @@ void draw() {
 //endCamera();
   
   translate(width/2,height/2,0);
-  //rotateZ(radians(frameCount));
-  //rotateX(radians(frameCount/2));
   rotateY(radians(frameCount/3.4));
   
   noFill();
