@@ -59,6 +59,11 @@ class track {
           pushMatrix();
           translate(n.v.x, n.v.y, n.v.z);
           box(n.nodeSize);
+
+          // Starting flag
+          if (i==0 && j==0) {
+            drawMarker();
+          }
           popMatrix();
         }
       }
@@ -67,6 +72,7 @@ class track {
 
     // Track Road
     node startNode = secList.get(0).nodeList.get(0);
+    node endNode = secList.get(0).nodeList.get(1);
 
     noFill();
     stroke(255);
@@ -84,7 +90,7 @@ class track {
     }
 
     curveVertex(startNode.v.x, startNode.v.y, startNode.v.z);
-    curveVertex(startNode.v.x, startNode.v.y, startNode.v.z);
+    curveVertex(endNode.v.x, endNode.v.y, endNode.v.z);
     endShape();
   }
 }
