@@ -1,4 +1,5 @@
 track cTrack = new track();
+craft cCraft = new craft();
 
 void setup() {
   size(620, 480, P3D);
@@ -8,8 +9,8 @@ void setup() {
 }
 
 void draw() {
-  //background(153);
-  background(0);
+  background(153);
+  //background(0);
 
   //beginCamera();
   //camera();
@@ -21,6 +22,6 @@ void draw() {
   if (rotateView) rotateY(radians(frameCount/3.4));
 
   noFill();
-  vizTrack(cTrack);
+  vizTrack();
   //cTrack.viz();
 }

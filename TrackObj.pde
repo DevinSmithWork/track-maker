@@ -5,9 +5,13 @@
 class track {
 
   ArrayList<section> secList = new ArrayList<section>();
+  node[] vizNodeArray;
 
   // Create track
   track() {
+    // Temp AL for nodes. Converted to array later.
+    ArrayList<node> nodeList = new ArrayList<node>();
+
     // sector size calculations
     byte numSec = byte(random(3, 6));
     float secSize = TWO_PI/numSec;
@@ -28,13 +32,21 @@ class track {
       // Create new sector object and add to list
       section s = new section(secVector);
       secList.add(s);
+
+      // Adds the nodes to the node list
+      nodeList.addAll(s.nodeList);
     }
-  }
 
+    // array for node vizualizer
+    // add the control point to the beginning
+    // Add the control points to the end.
+    nodeList.add(0, nodeList.get(nodeList.size()-1));
+    nodeList.add(nodeList.get(1));
+    nodeList.add(nodeList.get(2));
 
-  // Draw the track
-  void viz() {
-
+    // Convert arrayList to Array
+    vizNodeArray = new node[nodeList.size()];
+    vizNodeArray = nodeList.toArray(vizNodeArray);
   }
 }
 
@@ -74,7 +86,7 @@ class section {
   }
 
 
-
+  // TK delete viz?
   void viz(section nextSec) {
     stroke(c);
 
@@ -125,7 +137,6 @@ class section {
 }
 
 
-
 //==============================
 class node {
   int nodeSize;
@@ -134,6 +145,33 @@ class node {
   node(PVector nV) {
     v = nV;
     nodeSize = int(random(10, 20));
+  }
+}
+
+
+
+//==============================
+// Craft object
+//==============================
+class craft {
+  node cNode, nextNode;
+  byte cStep, totalSteps;
+
+  craft() {
+    cStep = 0;
+    totalSteps = 10;
+
+    cNode = cTrack.secList.get(0).nodeList.get(0);
+    nextNode = cTrack.secList.get(0).nodeList.get(1);
+  }
+
+  void vizCraft() {
+    // t = Float value btw 0 and 1.
+    float t = cStep / float(totalSteps);
+
+    // Move to next node if total steps
+    if (cStep == totalSteps) {
+    }
   }
 }
 

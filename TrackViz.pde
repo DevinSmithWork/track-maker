@@ -4,8 +4,8 @@
 // n : node
 // v : vector
 
-void vizTrack(track pTrack) {
-  track t = pTrack;
+void vizTrack() {
+  track t = cTrack;
 
   // Guides Boxes
   if (drawGuides) {
@@ -54,17 +54,26 @@ void vizTrack(track pTrack) {
   strokeWeight(3);
 
   beginShape();
-  curveVertex(preStartNode.v.x, preStartNode.v.y, preStartNode.v.z);
-
-  for (byte i=0; i<t.secList.size(); i++) {
-    section s = t.secList.get(i);
-    for (byte j=0; j<s.nodeList.size(); j++) {
-      node n = s.nodeList.get(j);
-      curveVertex(n.v.x, n.v.y, n.v.z);
-    }
-  }
-
-  curveVertex(startNode.v.x, startNode.v.y, startNode.v.z);
-  curveVertex(endNode.v.x, endNode.v.y, endNode.v.z);
+  for (node n : t.vizNodeArray)
+    curveVertex(n.v.x, n.v.y, n.v.z);
   endShape();
+
+  /*
+  beginShape();
+   curveVertex(preStartNode.v.x, preStartNode.v.y, preStartNode.v.z);
+   
+   for (byte i=0; i<t.secList.size(); i++) {
+   section s = t.secList.get(i);
+   for (byte j=0; j<s.nodeList.size(); j++) {
+   node n = s.nodeList.get(j);
+   curveVertex(n.v.x, n.v.y, n.v.z);
+   }
+   }
+   
+   curveVertex(startNode.v.x, startNode.v.y, startNode.v.z);
+   curveVertex(endNode.v.x, endNode.v.y, endNode.v.z);
+   endShape();
+   */
+
+  // Draw cNode
 }
