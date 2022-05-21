@@ -1,4 +1,4 @@
-# track-maker
+# Track Maker
 Processing / Java sketch for generating spatial tracks to act as musical guides. (Refreshing on GitHub usage for new job!)
 
 ## Usage
