@@ -6,3 +6,4 @@ Processing / Java sketch for generating spatial tracks to act as musical guides.
 * G : Toggle guide boxes
 * T : Toggle top-down view
 * R : Toggle rotation
+* C : Tiggke craft
