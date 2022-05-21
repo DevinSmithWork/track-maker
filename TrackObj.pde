@@ -149,34 +149,6 @@ class node {
 }
 
 
-
-//==============================
-// Craft object
-//==============================
-class craft {
-  node cNode, nextNode;
-  byte cStep, totalSteps;
-
-  craft() {
-    cStep = 0;
-    totalSteps = 10;
-
-    cNode = cTrack.secList.get(0).nodeList.get(0);
-    nextNode = cTrack.secList.get(0).nodeList.get(1);
-  }
-
-  void vizCraft() {
-    // t = Float value btw 0 and 1.
-    float t = cStep / float(totalSteps);
-
-    // Move to next node if total steps
-    if (cStep == totalSteps) {
-    }
-  }
-}
-
-
-
 //==============================
 class segment {
 }

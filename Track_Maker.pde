@@ -1,6 +1,8 @@
 track cTrack = new track();
 craft cCraft = new craft();
 
+//--------------------
+// Setup
 void setup() {
   size(620, 480, P3D);
 
@@ -8,9 +10,10 @@ void setup() {
   sphereDetail(6);
 }
 
+//--------------------
+// Main
 void draw() {
   background(153);
-  //background(0);
 
   //beginCamera();
   //camera();
@@ -23,5 +26,5 @@ void draw() {
 
   noFill();
   vizTrack();
-  //cTrack.viz();
+  if (drawCraft) cCraft.vizCraft();
 }
