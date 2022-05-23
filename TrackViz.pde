@@ -7,18 +7,19 @@ void vizTrack() {
 
   if (drawGuides) vizGuides();
 
-
   //------------------------
   // Draw Road
+   shape(cTrack.trackShape, 0, 0);
+  
+  /*
   noFill();
   stroke(255);
   strokeWeight(3);
-
   beginShape();
   for (node n : cTrack.vizNodeArray)
     curveVertex(n.v.x, n.v.y, n.v.z);
-  endShape();  
-  
+  endShape();
+  */
 }
 
 

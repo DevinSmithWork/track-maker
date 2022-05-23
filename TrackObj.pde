@@ -5,6 +5,7 @@
 class track {
 
   ArrayList<section> secList = new ArrayList<section>();
+  PShape trackShape;
   node[] vizNodeArray;
 
   // Create track
@@ -37,7 +38,7 @@ class track {
       nodeList.addAll(s.nodeList);
     }
 
-    // array for node vizualizer
+    // Convert to array for visualizer
     // add the control point to the beginning
     // Add the control points to the end.
     nodeList.add(0, nodeList.get(nodeList.size()-1));
@@ -47,8 +48,84 @@ class track {
     // Convert arrayList to Array
     vizNodeArray = new node[nodeList.size()];
     vizNodeArray = nodeList.toArray(vizNodeArray);
+
+    // TK!
+    // Calculate Node Distances
+    float runningTotal = 0;
+    for (int i=1; i<vizNodeArray.length-2; i++) {
+
+      float nodeDistance = 0;
+      vizNodeArray[i].startPosition = runningTotal;
+      float px, py, pz;
+      px = py = pz = 0;
+
+      for (float t=0.00; t<1.00; t+=0.01) {
+        // Points
+        float x = curvePoint(vizNodeArray[i-1].v.x, 
+          vizNodeArray[i].v.x, 
+          vizNodeArray[i+1].v.x, 
+          vizNodeArray[i+2].v.x, 
+          t);
+
+        float y = curvePoint(vizNodeArray[i-1].v.y, 
+          vizNodeArray[i].v.y, 
+          vizNodeArray[i+1].v.y, 
+          vizNodeArray[i+2].v.y, 
+          t);
+
+        float z = curvePoint(vizNodeArray[i-1].v.z, 
+          vizNodeArray[i].v.z, 
+          vizNodeArray[i+1].v.z, 
+          vizNodeArray[i+2].v.z, 
+          t);
+
+        // first node
+        if (t == 0.00) {
+          px = x;
+          py = y; 
+          pz = z;
+        } else {
+          // add the distance
+          nodeDistance += dist(px, py, pz, x, y, z);
+
+          // swap out previous point
+          px = x; 
+          py = y; 
+          pz = z;
+        }
+      }
+
+      vizNodeArray[i].nodeLength = nodeDistance;
+      runningTotal += nodeDistance;
+
+      println("Node: " + i + ", rT: " + nodeDistance + ", rT: " + runningTotal);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // Create track shape
+    // TK doesn't work
+
+    trackShape = createShape();
+    trackShape.beginShape();
+    trackShape.noFill();
+    trackShape.stroke(255);
+    trackShape.strokeWeight(3);
+    for (node n : vizNodeArray)
+      trackShape.curveVertex(n.v.x, n.v.y, n.v.z);
+    trackShape.endShape();
   }
 }
+
 
 
 
@@ -84,56 +161,6 @@ class section {
       nodeList.add(n);
     }
   }
-
-
-  // TK delete viz?
-  void viz(section nextSec) {
-    stroke(c);
-
-    pushMatrix();
-    translate(v.x, v.y, v.z);
-    sphere(5);
-
-
-    for (byte i=0; i<nodeList.size(); i++) {
-      node n = nodeList.get(i);
-
-      stroke(c);
-      line(0, 0, 0, n.v.x, n.v.y, n.v.z);
-
-      pushMatrix();
-      translate(n.v.x, n.v.y, n.v.z);
-      //box(n.nodeSize);
-      popMatrix();
-
-      // lines btw nodes
-      node nNext;
-      stroke(255);
-
-      if (i != nodeList.size()-1) {
-        nNext = nodeList.get(i+1);
-        line(n.v.x, n.v.y, n.v.z, nNext.v.x, nNext.v.y, nNext.v.z);
-      } else {
-        //nNext = nodeList.get(0);
-
-        popMatrix();
-
-        line(
-          v.x + n.v.x, 
-          v.y + n.v.y, 
-          v.z + n.v.z, 
-          nextSec.v.x + nextSec.nodeList.get(0).v.x, 
-          nextSec.v.y + nextSec.nodeList.get(0).v.y, 
-          nextSec.v.z + nextSec.nodeList.get(0).v.z);
-
-        // dummy push to even the pops
-        pushMatrix();
-      }
-    }
-
-
-    popMatrix();
-  }
 }
 
 
@@ -141,6 +168,7 @@ class section {
 class node {
   int nodeSize;
   PVector v;
+  float startPosition, nodeLength;
 
   node(PVector nV) {
     v = nV;

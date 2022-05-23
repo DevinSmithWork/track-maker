@@ -1,19 +1,32 @@
-track cTrack = new track();
-craft cCraft = new craft();
+// Objects
+track cTrack;
+craft cCraft;
 
-//--------------------
+// Global vars
+byte appxFrameRate = 30;
+
+
+
+//=============================
 // Setup
+//=============================
 void setup() {
   size(620, 480, P3D);
 
   rectMode(CENTER);
   sphereDetail(6);
+  //frameRate(appxFrameRate);
+  
+  cTrack = new track();
+  cCraft = new craft();
+  
 }
 
-//--------------------
+//=============================
 // Main
+//=============================
 void draw() {
-  background(153);
+  background(153); 
 
   //beginCamera();
   //camera();
