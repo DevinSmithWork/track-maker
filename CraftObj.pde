@@ -47,15 +47,17 @@ class craft {
 
     // current step
     float t = (frameCount % totalSteps) / float(totalSteps);
+    PVector v1 = cTrack.vizNodeArray[num].v;
+    PVector v2 = cTrack.vizNodeArray[num+1].v;
+    PVector v3 = cTrack.vizNodeArray[num+2].v;
+    PVector v4 = cTrack.vizNodeArray[num+3].v;
 
     // Points
-    float x = curvePoint(
-      cTrack.vizNodeArray[num].v.x, 
-      cTrack.vizNodeArray[num+1].v.x, 
-      cTrack.vizNodeArray[num+2].v.x, 
-      cTrack.vizNodeArray[num+3].v.x, 
-      t);
+    float x = curvePoint(v1.x, v2.x, v3.x, v4.x, t);
+    float y = curvePoint(v1.y, v2.y, v3.y, v4.y, t);
+    float z = curvePoint(v1.z, v2.z, v3.z, v4.z, t);
 
+/*
     float y = curvePoint(cTrack.vizNodeArray[num].v.y, 
       cTrack.vizNodeArray[num+1].v.y, 
       cTrack.vizNodeArray[num+2].v.y, 
@@ -67,6 +69,8 @@ class craft {
       cTrack.vizNodeArray[num+2].v.z, 
       cTrack.vizNodeArray[num+3].v.z, 
       t);
+      
+      */
 
     // Tangents
     float tx = curveTangent(
